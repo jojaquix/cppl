@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 3.25)
+
+
+## catch library main
+add_library(CatchMain STATIC CatchMain.cpp) 
+target_link_libraries(CatchMain PUBLIC Catch)
+target_link_libraries(CatchMain PRIVATE CommonOptions)
+
+
+## tests library add here all the files that you want to test
+set(SOURCES_TO_TEST ${CMAKE_SOURCE_DIR}/src/lib.h ${CMAKE_SOURCE_DIR}/src/lib.cpp)
+add_library(TestLib OBJECT ${SOURCES_TO_TEST}) 
+target_include_directories(TestLib INTERFACE ${CMAKE_SOURCE_DIR}/src) 
+target_link_libraries(TestLib PRIVATE CommonOptions) 
+
+## tests binary
+set(SOURCE_FILES tests.cpp)
+add_executable(tests ${SOURCE_FILES})
+target_include_directories(tests PUBLIC ${CMAKE_SOURCE_DIR}/src) 
+target_link_libraries(tests PRIVATE CommonOptions CatchMain)
+target_link_libraries(tests PUBLIC TestLib)
+
+add_test(NAME tests COMMAND tests)
+         #WORKING_DIRECTORY ${CMAKE_BINARY_DIR})

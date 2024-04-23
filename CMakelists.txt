@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.25)
+
+include(cmake/options.cmake)
+
+project(cppl)
+
+set(CMAKE_CXX_STANDARD 23)
+
+add_subdirectory(src)
+
+## Enable/Disable Testing
+option(ENABLE_TEST "Turn on to enable tests" ON)
+if (ENABLE_TEST)                           
+   enable_testing()                                                                         
+   if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/deps/catch2/catch.hpp)                           
+      file(
+        DOWNLOAD 
+        https://raw.githubusercontent.com/catchorg/Catch2/v2.13.10/single_include/catch2/catch.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/deps/catch2/catch.hpp
+      )
+      #this does not work
+      set(CATCH2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps)                           
+   endif()
+   #message(STATUS "Catch2 include directory: ${CMAKE_CURRENT_SOURCE_DIR}/deps")
+   #message(STATUS "Catch2 include directory variable: ${CATCH2_INCLUDE_DIR}")
+   add_library(Catch INTERFACE)
+   #target_include_directories(Catch INTERFACE ${CATCH2_INCLUDE_DIR})
+   target_include_directories(Catch INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/deps)
+   add_subdirectory(test)                       
+endif()
