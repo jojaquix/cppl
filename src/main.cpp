@@ -1,7 +1,12 @@
-#include <iostream>
+#define IMM2D_WIDTH 320
+#define IMM2D_HEIGHT 240
+#define IMM2D_SCALE 3
 
-void main()
+#define IMM2D_IMPLEMENTATION
+#include "immediate2d/immediate2d.h"
+
+void run()
 {
-    std::cout << "hello world!!";
-    
+    DrawPixel(80, 60, Yellow);
 }
+

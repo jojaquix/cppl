@@ -6,6 +6,17 @@ project(cppl)
 
 set(CMAKE_CXX_STANDARD 23)
 
+set(IMMEDIATE2D_DIR )
+## Handle some dependencies here
+if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/deps/immediate2D/immediate2D.h)
+file(
+  DOWNLOAD 
+  https://raw.githubusercontent.com/npiegdon/immediate2d/v2.0/immediate2d.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/deps/immediate2d/immediate2d.h
+)
+set(IMMEDIATE2D_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/immediate2d)
+endif()
+
 add_subdirectory(src)
 
 ## Enable/Disable Testing
