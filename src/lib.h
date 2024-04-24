@@ -1,6 +1,10 @@
 #pragma once
 
 #include<cstdint>
+#include<array>
+
+constexpr int SCREEN_WIDTH = 640;
+constexpr int SCREEN_HEIGHT = 360;
 
 enum class KColor:uint32_t
 {
@@ -24,6 +28,9 @@ enum class KColor:uint32_t
 };
 
 
+using Screen = std::array<KColor, SCREEN_WIDTH * SCREEN_HEIGHT>;
+
+
 using LoopFunctionT = void (*)();
 
 constexpr KColor makeColor(int r, int g, int b)
@@ -38,6 +45,9 @@ void drawCircle(int centerX, int centerY, int radius, KColor fill, KColor stroke
 void drawArc(int centerX, int centerY, int radius, float thikness, KColor stroke, float startRadians, float endRadians);
 void drawString(int x, int y, const char* text, const char* font, int fontSizePt, KColor color, bool centered = false);
 void clear(KColor color);
+
+void updateScreen(const Screen& screen);
+
 KColor readPixels(int x, int y);
 
 void enableAntiAliasing();
@@ -47,11 +57,4 @@ char lastKey();
 char lastBufferedKey();
 void clearInputBuffer();
 
-
-
-
-
-
-
-
-
+void wait(int milliseconds);
