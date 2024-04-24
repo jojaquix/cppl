@@ -1,8 +1,8 @@
 #include "lib.h"
 
-#define IMM2D_WIDTH 640/2
-#define IMM2D_HEIGHT 480/2
-#define IMM2D_SCALE 3
+#define IMM2D_WIDTH 640
+#define IMM2D_HEIGHT 360
+#define IMM2D_SCALE 2
 #define IMM2D_IMPLEMENTATION
 #include "immediate2d/immediate2d.h"
 
