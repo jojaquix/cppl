@@ -3,8 +3,8 @@
 #include<cstdint>
 #include<array>
 
-constexpr int SCREEN_WIDTH = 640;
-constexpr int SCREEN_HEIGHT = 360;
+constexpr int SCREEN_WIDTH = 640/2;
+constexpr int SCREEN_HEIGHT = 360/2;
 
 enum class KColor:uint32_t
 {
@@ -31,7 +31,7 @@ enum class KColor:uint32_t
 using Screen = std::array<KColor, SCREEN_WIDTH * SCREEN_HEIGHT>;
 
 
-using LoopFunctionT = void (*)();
+using ExecFunctionT = void (*)();
 
 constexpr KColor makeColor(int r, int g, int b)
 {
@@ -44,7 +44,7 @@ void drawRectangle(int posX, int posY, int width, int height, KColor fill, KColo
 void drawCircle(int centerX, int centerY, int radius, KColor fill, KColor stroke = KColor::Transparent);
 void drawArc(int centerX, int centerY, int radius, float thikness, KColor stroke, float startRadians, float endRadians);
 void drawString(int x, int y, const char* text, const char* font, int fontSizePt, KColor color, bool centered = false);
-void clear(KColor color);
+void clearScreen(KColor color);
 
 void updateScreen(const Screen& screen);
 

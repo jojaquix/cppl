@@ -2,13 +2,13 @@
 
 #define IMM2D_WIDTH SCREEN_WIDTH
 #define IMM2D_HEIGHT SCREEN_HEIGHT
-#define IMM2D_SCALE 2
+#define IMM2D_SCALE 3
 #define IMM2D_IMPLEMENTATION
 #include "immediate2d/immediate2d.h"
 
 #include <span>
 
-extern LoopFunctionT loopFunction;
+extern ExecFunctionT executeFunction;
 
 static void updateScreenImpl(std::span<const KColor> screen);
 
@@ -43,7 +43,7 @@ void drawString(int x, int y, const char *text, const char *font, int fontSizePt
     DrawString(x, y, text, font, fontSizePt, static_cast<Color>(color), centered);
 }
 
-void clear(KColor color)
+void clearScreen(KColor color)
 {
     Clear(static_cast<Color>(color));
 }
@@ -121,7 +121,7 @@ static void updateScreenImpl(std::span<const KColor> screen)
 */
 void run()
 {
-    loopFunction();
+    executeFunction();
 }
 
 

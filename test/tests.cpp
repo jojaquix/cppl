@@ -6,7 +6,7 @@
 #include <ranges>
 #include <numeric>
 
-LoopFunctionT loopFunction = nullptr;
+ExecFunctionT executeFunction = nullptr;
 
 TEST_CASE("Test with zero", "[dummy]")
 {   
