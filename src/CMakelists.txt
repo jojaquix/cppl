@@ -9,3 +9,7 @@ add_executable(cppl WIN32 ${SOURCE_FILES})
 
 target_include_directories(cppl PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}) 
 target_link_libraries(cppl PRIVATE CommonOptions)
+if (MSVC)    
+    #set property for use msvc statically linked runtime
+    set_property(TARGET cppl PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+endif()
