@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.25)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES 
+    main.cpp
+    lib.cpp lib.h
+)
+
 add_executable(cppl WIN32 ${SOURCE_FILES})
 
 target_include_directories(cppl PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}) 

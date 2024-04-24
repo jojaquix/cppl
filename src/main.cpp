@@ -1,12 +1,19 @@
-#define IMM2D_WIDTH 320
-#define IMM2D_HEIGHT 240
-#define IMM2D_SCALE 3
+#include "lib.h"
 
-#define IMM2D_IMPLEMENTATION
-#include "immediate2d/immediate2d.h"
+/**
+ * loop prototype
+*/
+void loop();
 
-void run()
+LoopFunctionT loopFunction = loop;
+
+/**
+ * loop implementation
+*/
+void loop()
 {
-    DrawPixel(80, 60, Yellow);
+    drawPixel(80, 60, KColor::Red);
 }
+
+
 

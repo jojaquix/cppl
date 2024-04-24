@@ -6,12 +6,14 @@
 #include <ranges>
 #include <numeric>
 
-TEST_CASE("Test with zero", "[classic]")
+LoopFunctionT loopFunction = nullptr;
+
+TEST_CASE("Test with zero", "[dummy]")
 {   
    REQUIRE(0 == 0);
 }
 
-TEST_CASE("Test some std algorithms", "[classic]")
+TEST_CASE("Test some std algorithms", "[std]")
 {   
     std::vector<int> v = {1, 2, 3, 4, 5};
     REQUIRE(std::accumulate(v.begin(), v.end(), 0) == 15);
@@ -22,7 +24,8 @@ TEST_CASE("Test some std algorithms", "[classic]")
     std::vector<int> v2 = {1, 2, 3, 4, 5};
     std::partition(v2.begin(), v2.end(), [](int i){return i % 2 == 0;});
     REQUIRE(std::is_partitioned(v2.begin(), v2.end(), [](int i){return i % 2 == 0;}));
-    REQUIRE(std::is_sorted(v2.begin(), v2.end()));
+    std::sort(std::begin(v2), std::end(v2));
+    REQUIRE(std::is_sorted(std::begin(v2), std::end(v2)));
     // using views and ranges
     std::vector<int> v3 = {1, 2, 3, 4, 5};
     auto even = std::views::filter(v3, [](int i){return i % 2 == 0;});
