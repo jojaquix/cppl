@@ -19,9 +19,9 @@ void drawLine(int startPosX, int startPosY, int endPosX, int endPosY, int thickn
     DrawLine(startPosX, startPosY, endPosX, endPosY, thickness, static_cast<Color>(color));
 }
 
-void drawLine(float startPosX, float startPosY, float endPosX, float endPosY, int thickness, KColor color)
+void drawRectangle(int posX, int posY, int width, int height, KColor fill, KColor stroke)
 {
-    DrawLine(startPosX, startPosY, endPosX, endPosY, thickness, static_cast<Color>(color));
+    DrawRectangle(posX, posY, width, height, static_cast<Color>(fill), static_cast<Color>(stroke));
 }
 
 void drawCircle(int centerX, int centerY, int radius, KColor fill, KColor stroke)
@@ -29,8 +29,45 @@ void drawCircle(int centerX, int centerY, int radius, KColor fill, KColor stroke
     DrawCircle(centerX, centerY, radius, static_cast<Color>(fill), static_cast<Color>(stroke));
 }
 
+void drawArc(int centerX, int centerY, int radius, float thikness, KColor stroke, float startRadians, float endRadians)
+{
+    DrawArc(centerX, centerY, radius, thikness, static_cast<Color>(stroke), startRadians, endRadians);
+}
 
+void drawString(int x, int y, const char *text, const char *font, int fontSizePt, KColor color, bool centered)
+{
+    DrawString(x, y, text, font, fontSizePt, static_cast<Color>(color), centered);
+}
 
+void clear(KColor color)
+{
+    Clear(static_cast<Color>(color));
+}
+
+void enableAntiAliasing()
+{
+    UseAntiAliasing();
+}
+
+void disableAntiAliasing()
+{
+    StopAntiAliasing();
+}
+
+char lastKey()
+{
+    return LastKey();
+}
+
+char lastBufferedKey()
+{
+    return LastBufferedKey();
+}
+
+void clearInputBuffer()
+{
+    ClearInputBuffer();
+}
 
 /**
  * Implemmentation of immediate2d run function

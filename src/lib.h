@@ -33,9 +33,22 @@ constexpr KColor makeColor(int r, int g, int b)
 
 void drawPixel(int x, int y, KColor color);
 void drawLine(int startPosX, int startPosY, int endPosX, int endPosY,int thickness, KColor color);
-void drawLine(float startPosX, float startPosY, float endPosX, float endPosY,int thickness, KColor color);
-void drawCircle(int centerX, int centerY, int radius, KColor fill, KColor stroke);
-void drawCircle(float centerX, float centerY, float radius, KColor fill, KColor stroke);
+void drawRectangle(int posX, int posY, int width, int height, KColor fill, KColor stroke = KColor::Transparent);
+void drawCircle(int centerX, int centerY, int radius, KColor fill, KColor stroke = KColor::Transparent);
+void drawArc(int centerX, int centerY, int radius, float thikness, KColor stroke, float startRadians, float endRadians);
+void drawString(int x, int y, const char* text, const char* font, int fontSizePt, KColor color, bool centered = false);
+void clear(KColor color);
+KColor readPixels(int x, int y);
+
+void enableAntiAliasing();
+void disableAntiAliasing();
+
+char lastKey();
+char lastBufferedKey();
+void clearInputBuffer();
+
+
+
 
 
 
