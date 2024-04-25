@@ -14,6 +14,7 @@ file(
   https://raw.githubusercontent.com/npiegdon/immediate2d/v2.0/immediate2d.h
   ${CMAKE_CURRENT_SOURCE_DIR}/deps/immediate2d/immediate2d.h
 )
+
 set(IMMEDIATE2D_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/immediate2d)
 endif()
 

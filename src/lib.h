@@ -30,13 +30,17 @@ enum class KColor:uint32_t
 
 using Screen = std::array<KColor, SCREEN_WIDTH * SCREEN_HEIGHT>;
 
-
 using ExecFunctionT = void (*)();
 
-constexpr KColor makeColor(int r, int g, int b)
-{
-    return static_cast<KColor>(0xFF000000 | ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | ((b & 0xFF) << 0));
-}
+/**
+ * Define this function pointer to point to the function that will be executed the application
+ * todo: this could be better but requieres more work writing gdi window and events management
+*/
+extern ExecFunctionT executeFunction;
+
+constexpr KColor makeColor(int r, int g, int b);
+
+KColor makeColorHSB(int hue, int sat, int val);
 
 void drawPixel(int x, int y, KColor color);
 void drawLine(int startPosX, int startPosY, int endPosX, int endPosY,int thickness, KColor color);

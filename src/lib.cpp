@@ -8,11 +8,50 @@
 
 #include <span>
 
-extern ExecFunctionT executeFunction;
-
 static void updateScreenImpl(std::span<const KColor> screen);
 
 //all api functions in immediate2d.h but lowercase in the first letter
+
+constexpr KColor makeColor(int r, int g, int b)
+{
+    return static_cast<KColor>(0xFF000000 | ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | ((b & 0xFF) << 0));
+}
+
+KColor makeColorHSB(int hue, int sat, int val)
+{
+    float h = std::min(1.0f, std::max(0.0f, (hue % 360) / 360.0f));
+    float s = std::min(1.0f, std::max(0.0f, sat / 255.0f));
+    float v = std::min(1.0f, std::max(0.0f, val / 255.0f));
+
+    if (s == 0)
+    {
+        int gray = int(v * 255);
+        return makeColor(gray, gray, gray);
+    }
+
+    float var_h = h * 6;
+    int var_i = int(var_h);
+    float var_1 = v * (1 - s);
+    float var_2 = v * (1 - s * (var_h - var_i));
+    float var_3 = v * (1 - s * (1 - (var_h - var_i)));
+
+    float var_r;
+    float var_g;
+    float var_b;
+
+    switch (var_i)
+    {
+        case 0:  var_r = v;     var_g = var_3; var_b = var_1; break;
+        case 1:  var_r = var_2; var_g = v;     var_b = var_1; break;
+        case 2:  var_r = var_1; var_g = v;     var_b = var_3; break;
+        case 3:  var_r = var_1; var_g = var_2; var_b = v;     break;
+        case 4:  var_r = var_3; var_g = var_1; var_b = v;     break;
+        default: var_r = v;     var_g = var_1; var_b = var_2; break;
+    }
+
+    return makeColor(int(var_r * 255), int(var_g * 255), int(var_b * 255));
+}
+
 void drawPixel(int x, int y, KColor color)
 {
     DrawPixel(x, y, static_cast<Color>(color));
