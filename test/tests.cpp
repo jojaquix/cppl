@@ -1,12 +1,12 @@
 #include <catch2/catch.hpp>
 #
 
-#include "lib.h"
+#include "EntityManager.hpp"
 
 #include <ranges>
 #include <numeric>
 
-ExecFunctionT executeFunction = nullptr;
+//ExecFunctionT executeFunction = nullptr;
 
 TEST_CASE("Test with zero", "[dummy]")
 {   
@@ -35,4 +35,27 @@ TEST_CASE("Test some std algorithms", "[std]")
 
 
     
+}
+
+//test for sprite data 
+TEST_CASE("Test sprite data", "[ecs]")
+{
+    std::vector<KColor> spriteData = {KColor::Black, KColor::White, KColor::Black, KColor::White};
+    ecs::Sprite sprite{{2, 2}, spriteData};
+    auto data = sprite.data();
+    REQUIRE(data.size() == 4);
+    REQUIRE(data[0] == KColor::Black);
+    REQUIRE(data[1] == KColor::White);
+    REQUIRE(data[2] == KColor::Black);
+    REQUIRE(data[3] == KColor::White);
+
+    //now if spiteData is inicialized with an std array
+    std::array<KColor, 4> spriteData2 = {KColor::Transparent, KColor::White, KColor::Black, KColor::White};
+    ecs::Sprite sprite2{{2, 2}, spriteData2};
+    auto data2 = sprite2.data();
+    REQUIRE(data2.size() == 4);
+    REQUIRE(data2[0] == KColor::Transparent);
+    REQUIRE(data2[1] == KColor::White);
+    REQUIRE(data2[2] == KColor::Black);
+    REQUIRE(data2[3] == KColor::White);    
 }

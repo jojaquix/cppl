@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 3.25)
 set(SOURCE_FILES 
     main.cpp
     EntityManager.hpp
-    lib.cpp lib.h
+    IO.cpp IO.hpp
+    Sprite.cpp Sprite.hpp
 )
 
 add_executable(cppl WIN32 ${SOURCE_FILES})

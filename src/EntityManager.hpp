@@ -1,6 +1,7 @@
 #pragma once
 
-#include "lib.h"
+#include "Types.hpp"
+#include "Sprite.hpp"
 #include <cstdint>
 #include <variant>
 #include <span>
@@ -8,50 +9,53 @@
 #include <unordered_map>
 #include <utility>
 
+/**
+ * @file EntityManager.hpp
+ * @brief Defines the EntityManager class and related data structures for entity-component system.
+ */
+
+
 namespace ecs {
 
-using EntityID = uint32_t;
+using EntityID = uint32_t; /**< Type alias for entity ID. */
 
-using Dimension = std::pair<int, int>;
 
-using SpriteData = std::variant<std::vector<KColor>, std::span<const KColor>>;
-
-struct Sprite
-{    
-    std::span<const KColor> data() const
-    {
-        if (std::holds_alternative<std::vector<KColor>>(data))
-        {
-            return std::span<const KColor>(std::get<std::vector<KColor>>(data));
-        }
-        else
-        {
-            return std::get<std::span<const KColor>>(data);
-        }
-    }        
-    Dimension size;
-    SpriteData data;
+struct BasicEntity {
+    EntityID id; /**< The ID of the entity. */
 };
 
-struct Entity {
-    EntityID id;
-    Sprite sprite;
+
+struct SpriteEntity: public BasicEntity {    
+    Sprite sprite; /**< The sprite of the entity. */
 };
 
+/**
+ * @class EntityManager
+ * @brief Manages entities and their components.
+ * @tparam ComponentType The type of the components associated with the entities.
+ */
 template <typename ComponentType>
 class EntityManager {
 public:
-    // Constructor
+    /**
+     * @brief Constructor for EntityManager.
+     */
     explicit EntityManager() : nextEntityID(0) {}
 
-    // Create a new entity
+    /**
+     * @brief Create a new entity.
+     * @return The ID of the newly created entity.
+     */
     EntityID createEntity() {
         EntityID entityID = nextEntityID;
         nextEntityID++;
         return entityID;
     }
 
-    // Destroy an entity
+    /**
+     * @brief Destroy an entity.
+     * @param entityID The ID of the entity to destroy.
+     */
     void destroyEntity(EntityID entityID) {
         // Perform any necessary cleanup for the entity
         // ...
@@ -63,9 +67,9 @@ public:
 private:
     // Data members and private methods go here
 
-    EntityID nextEntityID; // The ID to assign to the next created entity
+    EntityID nextEntityID; /**< The ID to assign to the next created entity. */
 
-    std::unorderer_map<EntityID, ComponentType> components;
+    std::unordered_map<EntityID, ComponentType> components; /**< The map of entity ID to component. */
 
 };
 

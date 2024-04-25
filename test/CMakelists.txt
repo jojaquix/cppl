@@ -8,7 +8,10 @@ target_link_libraries(CatchMain PRIVATE CommonOptions)
 
 
 ## tests library add here all the files that you want to test
-set(SOURCES_TO_TEST ${CMAKE_SOURCE_DIR}/src/lib.h ${CMAKE_SOURCE_DIR}/src/lib.cpp)
+set(SOURCES_TO_TEST 
+    ${CMAKE_SOURCE_DIR}/src/Sprite.cpp
+)
+
 add_library(TestLib OBJECT ${SOURCES_TO_TEST}) 
 target_include_directories(TestLib INTERFACE ${CMAKE_SOURCE_DIR}/src) 
 target_link_libraries(TestLib PRIVATE CommonOptions) 

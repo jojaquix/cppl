@@ -1,4 +1,4 @@
-#include "lib.h"
+#include "IO.hpp"
 
 #define IMM2D_WIDTH SCREEN_WIDTH
 #define IMM2D_HEIGHT SCREEN_HEIGHT
@@ -87,7 +87,7 @@ void clearScreen(KColor color)
     Clear(static_cast<Color>(color));
 }
 
-void updateScreen(const Screen &screen)
+void updateScreen(const ScreenBuff &screen)
 {
     updateScreenImpl(screen);
 }

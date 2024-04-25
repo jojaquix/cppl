@@ -1,7 +1,7 @@
-#include "lib.h"
+#include "IO.hpp"
 
 
-Screen screen;
+ScreenBuff screen;
 
 
 // we could use https://www.piskelapp.com/ to create sprites and see how it looks before using it in the code
