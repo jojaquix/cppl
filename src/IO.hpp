@@ -16,7 +16,8 @@ using ExecFunctionT = void (*)();
  * Define this function pointer to point to the function that will be executed the application
  * todo: this could be better but requieres more work writing gdi window and events management
 */
-extern ExecFunctionT executeFunction;
+//extern ExecFunctionT executeFunction;
+extern void execute();
 
 constexpr KColor makeColor(int r, int g, int b);
 

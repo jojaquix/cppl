@@ -49,6 +49,9 @@ TEST_CASE("Test sprite data", "[ecs]")
     REQUIRE(data[2] == KColor::Black);
     REQUIRE(data[3] == KColor::White);
 
+    spriteData[0] = KColor::White;
+    REQUIRE(data[0] == KColor::Black); //data is a copy of spriteData so it should not change
+
     //now if spiteData is inicialized with an std array
     std::array<KColor, 4> spriteData2 = {KColor::Transparent, KColor::White, KColor::Black, KColor::White};
     ecs::Sprite sprite2{{2, 2}, spriteData2};
@@ -57,5 +60,8 @@ TEST_CASE("Test sprite data", "[ecs]")
     REQUIRE(data2[0] == KColor::Transparent);
     REQUIRE(data2[1] == KColor::White);
     REQUIRE(data2[2] == KColor::Black);
-    REQUIRE(data2[3] == KColor::White);    
+    REQUIRE(data2[3] == KColor::White);
+
+    spriteData2[0] = KColor::White;
+    REQUIRE(data2[0] == KColor::White); //data2 is a spand of spriteData2 so it should change
 }
