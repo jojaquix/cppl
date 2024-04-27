@@ -3,6 +3,9 @@
 #define IMM2D_WIDTH SCREEN_WIDTH
 #define IMM2D_HEIGHT SCREEN_HEIGHT
 #define IMM2D_SCALE 3
+
+
+#define IMM2D_WINDOW_TITLE "Cppl"
 #define IMM2D_IMPLEMENTATION
 #include "immediate2d/immediate2d.h"
 

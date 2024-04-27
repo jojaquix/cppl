@@ -10,7 +10,6 @@ constexpr int SCREEN_HEIGHT = 360/2;
 
 using ScreenBuff = std::array<KColor, SCREEN_WIDTH * SCREEN_HEIGHT>;
 
-using ExecFunctionT = void (*)();
 
 /**
  * Define this function pointer to point to the function that will be executed the application

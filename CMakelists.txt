@@ -11,7 +11,7 @@ set(IMMEDIATE2D_DIR )
 if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/deps/immediate2D/immediate2D.h)
 file(
   DOWNLOAD 
-  https://raw.githubusercontent.com/npiegdon/immediate2d/v2.0/immediate2d.h
+  https://raw.githubusercontent.com/jojaquix/immediate2d/window_config_ext/immediate2d.h
   ${CMAKE_CURRENT_SOURCE_DIR}/deps/immediate2d/immediate2d.h
 )
 

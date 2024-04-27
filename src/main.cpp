@@ -22,7 +22,6 @@ KColor sprite1[8 * 8] = {
  * execution function type prototype
 */
 void execute();
-ExecFunctionT executeFunction = execute;
 
 /**
  * implementation of execute function
