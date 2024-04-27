@@ -16,6 +16,9 @@ build/
 # Visual Studio Code specific files
 .vscode/
 
+# deps
+/deps
+
 # macOS specific files
 .DS_Store
 
