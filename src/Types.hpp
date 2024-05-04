@@ -25,3 +25,16 @@ enum class KColor:uint32_t
 };
 
 
+constexpr int SCREEN_DIV = 4;
+constexpr int SCREEN_SCALE = 6;
+constexpr int SCREEN_WIDTH = 640/SCREEN_DIV;
+constexpr int SCREEN_HEIGHT = 360/SCREEN_DIV;
+
+using ScreenBuff = std::array<KColor, SCREEN_WIDTH * SCREEN_HEIGHT>;
+
+/** forward declaration of Srite type*/
+namespace graphics {
+    struct Sprite;
+}
+
+

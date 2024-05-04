@@ -5,17 +5,14 @@
 #include<cstdint>
 #include<array>
 
-constexpr int SCREEN_WIDTH = 640/2;
-constexpr int SCREEN_HEIGHT = 360/2;
 
-using ScreenBuff = std::array<KColor, SCREEN_WIDTH * SCREEN_HEIGHT>;
 
 
 /**
- * Define this function pointer to point to the function that will be executed the application
+ * Define this function that will be executed the application
  * todo: this could be better but requieres more work writing gdi window and events management
 */
-//extern ExecFunctionT executeFunction;
+
 extern void execute();
 
 constexpr KColor makeColor(int r, int g, int b);
@@ -30,7 +27,7 @@ void drawArc(int centerX, int centerY, int radius, float thikness, KColor stroke
 void drawString(int x, int y, const char* text, const char* font, int fontSizePt, KColor color, bool centered = false);
 void clearScreen(KColor color);
 
-void updateScreen(const ScreenBuff& screen);
+void updateScreen(const ScreenBuff& screenBuff);
 
 KColor readPixels(int x, int y);
 
@@ -42,3 +39,5 @@ char lastBufferedKey();
 void clearInputBuffer();
 
 void wait(int milliseconds);
+
+

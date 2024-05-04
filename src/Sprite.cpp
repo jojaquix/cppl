@@ -1,6 +1,6 @@
 #include "Sprite.hpp"
 
-namespace ecs {
+namespace graphics {
 
 std::span<const KColor> Sprite::data() const
 {
@@ -19,6 +19,27 @@ const bool Sprite::isRef()
     return std::holds_alternative<std::span<const KColor>>(rawData);
 }
 
+void Sprite::drawToBuffer(ScreenBuff &sb, int x, int y) const
+{
+        KColor *data = sb.data()+(x + y * SCREEN_WIDTH);
+        const auto* spritePtr = this->data().data();
+
+        for (int i = 0; i < this->width(); i++)
+        {
+            for (int j = 0; j < this->height(); j++)
+            {
+                if (*spritePtr != KColor::Transparent)
+                {
+                    *data = *spritePtr;
+                }
+                spritePtr++;
+                data++;
+
+            }
+            data += SCREEN_WIDTH - this->width();
+        }
+}
+
 Sprite makeFaceSprite()
 {
 
@@ -34,7 +55,7 @@ Sprite makeFaceSprite()
     KColor::Transparent, KColor::Blue, KColor::Yellow, KColor::Yellow, KColor::Yellow, KColor::Yellow, KColor::Blue, KColor::Transparent,
     KColor::Transparent, KColor::Transparent, KColor::Blue, KColor::Blue, KColor::Blue, KColor::Blue, KColor::Transparent, KColor::Transparent,        
     };
-    return Sprite{{8, 8}, spriteData};
+    return Sprite{{8, 8}, std::span{spriteData, 8 * 8}};
 }
 
 } // namespace ecs

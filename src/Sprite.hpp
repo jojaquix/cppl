@@ -6,7 +6,7 @@
 #include <span>
 #include <vector>
 
-namespace ecs {
+namespace graphics {
 
 using Dimension = std::pair<int, int>; /**< Type alias for dimension of a sprite. */
 
@@ -34,9 +34,17 @@ struct Sprite
     const bool isRef();
     inline const int width() const { return size.first; }
     inline const int height() const { return size.second; }
+
+    /** draw sprite in Screen buffer
+     * @param x The x position to draw the sprite.
+     * @param y The y position to draw the sprite.
+     * @param color The color to use to draw the sprite.
+     
+    */
+    void drawToBuffer(ScreenBuff& sb, int x, int y) const;
 };
 
 
 Sprite makeFaceSprite();
 
-} // namespace ecs
+} // namespace graphics

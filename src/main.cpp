@@ -1,7 +1,8 @@
 #include "IO.hpp"
+#include "Sprite.hpp"
 
 
-ScreenBuff screen;
+ScreenBuff screenBuff;
 
 
 // we could use https://www.piskelapp.com/ to create sprites and see how it looks before using it in the code
@@ -18,10 +19,40 @@ KColor sprite1[8 * 8] = {
     KColor::Transparent, KColor::Transparent, KColor::Blue, KColor::Blue, KColor::Blue, KColor::Blue, KColor::Transparent, KColor::Transparent,
 };
 
+// simple red cross sprite
+KColor sprite2[8 * 8] = 
+{
+    //basic sprite of a red cross in row major order
+    KColor::Transparent, KColor::Transparent, KColor::Transparent, KColor::Red, KColor::Red, KColor::Transparent, KColor::Transparent, KColor::Transparent,
+    KColor::Transparent, KColor::Transparent, KColor::Transparent, KColor::Red, KColor::Red, KColor::Transparent, KColor::Transparent, KColor::Transparent,
+    KColor::Transparent, KColor::Transparent, KColor::Transparent, KColor::Red, KColor::Red, KColor::Transparent, KColor::Transparent, KColor::Transparent,
+    KColor::Red,         KColor::Red,         KColor::Red,         KColor::Red, KColor::Red, KColor::Red, KColor::Red, KColor::Red,
+    KColor::Red,         KColor::Red,         KColor::Red,         KColor::Red, KColor::Red, KColor::Red, KColor::Red, KColor::Red,
+    KColor::Transparent, KColor::Transparent, KColor::Transparent, KColor::Red, KColor::Red, KColor::Transparent, KColor::Transparent, KColor::Transparent,
+    KColor::Transparent, KColor::Transparent, KColor::Transparent, KColor::Red, KColor::Red, KColor::Transparent, KColor::Transparent, KColor::Transparent,
+    KColor::Transparent, KColor::Transparent, KColor::Transparent, KColor::Red, KColor::Red, KColor::Transparent, KColor::Transparent, KColor::Transparent,
+};
+
 /**
  * execution function type prototype
 */
 void execute();
+
+
+void screenBuffAddSprite(ScreenBuff& screenBuff, const graphics::Sprite& sprite, int x, int y)
+{
+    const auto* spritePtr = sprite.data().data();
+    KColor *data = screenBuff.data()+(x + y * SCREEN_WIDTH);
+    for (int i = 0; i < sprite.width(); i++)
+    {
+        for (int j = 0; j < sprite.height(); j++)
+        {
+            *data++ = *spritePtr++;
+        }
+        data += SCREEN_WIDTH - sprite.width();
+    }   
+}
+
 
 /**
  * implementation of execute function
@@ -38,41 +69,26 @@ void execute()
     wait(500);
 #endif
 
+    //clearScreen(KColor::White);
+   
+    static int xi= 10;    
+    static int yi= 10;
 
-    clearScreen(KColor::White);
-  
     //loop to move the sprite
-    for (int times = 0; times < 100; ++times)
+    for (int times = 0; times < 40; ++times)
     {
-        for (int i = 0; i < SCREEN_WIDTH; i++)
-        {
-            for (int j = 0; j < SCREEN_HEIGHT; j++)
-            {
-                screen[i + j * SCREEN_WIDTH] = KColor::White;
-            }
-        }
 
-        //copy sprite1 to screen
-        static int xi= 10;    
-        static int yi= 10;
+        std::fill(screenBuff.begin(), screenBuff.end(), (KColor::Cyan));
         
-        KColor *data = screen.data()+(xi + yi * SCREEN_WIDTH);
-        const auto* spritePtr = sprite1;
+        graphics::Sprite sprite{{8, 8}, std::span{sprite2, 8 * 8}};
+        //graphics::Sprite sprite{graphics::makeFaceSprite()};
+        sprite.drawToBuffer(screenBuff, xi, yi);     
 
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                *data++ = *spritePtr++;
-            }
-            data += SCREEN_WIDTH - 8;
-        }
-
-        xi+=2;
+        xi++;
         yi++;
 
-        updateScreen(screen);
-        wait(100);
+        updateScreen(screenBuff);
+        wait(5);
     }    
 }
 
