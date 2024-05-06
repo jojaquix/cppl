@@ -163,7 +163,6 @@ static void updateScreenImpl(std::span<const KColor> screen)
 */
 void run()
 {
-    //executeFunction();
     execute();
 }
 

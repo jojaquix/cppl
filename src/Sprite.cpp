@@ -2,21 +2,22 @@
 
 namespace graphics {
 
+
 std::span<const KColor> Sprite::data() const
 {
-    if (std::holds_alternative<std::vector<KColor>>(rawData))
+    //if (std::holds_alternative<std::vector<KColor>>(rawData))
     {
-        return std::span<const KColor>(std::get<std::vector<KColor>>(rawData));
+      //  return std::span<const KColor>(std::get<std::vector<KColor>>(rawData));
     }
-    else
+    //else
     {
-        return std::get<std::span<const KColor>>(rawData);
+        return (rawData);
     }
 }
 
 const bool Sprite::isRef()
 {
-    return std::holds_alternative<std::span<const KColor>>(rawData);
+    return true; //std::holds_alternative<std::span<const KColor>>(rawData);
 }
 
 void Sprite::drawToBuffer(ScreenBuff &sb, int x, int y) const
@@ -44,7 +45,7 @@ Sprite makeFaceSprite()
 {
 
     // we could use https://www.piskelapp.com/ to create sprites and see how it looks before using it in the code
-    KColor spriteData[8 * 8] = {
+    static constexpr KColor spriteData[8 * 8] = {
     //basic sprite of a smiley face in row major order
     KColor::Transparent, KColor::Transparent, KColor::Blue, KColor::Blue, KColor::Blue, KColor::Blue, KColor::Transparent, KColor::Transparent,
     KColor::Transparent, KColor::Blue, KColor::Yellow, KColor::Yellow, KColor::Yellow, KColor::Yellow, KColor::Blue, KColor::Transparent,
@@ -53,9 +54,9 @@ Sprite makeFaceSprite()
     KColor::Blue, KColor::Yellow, KColor::Yellow, KColor::Yellow, KColor::Yellow, KColor::Yellow, KColor::Yellow, KColor::Blue,
     KColor::Blue, KColor::Yellow, KColor::Yellow, KColor::Black, KColor::Black, KColor::Yellow, KColor::Yellow, KColor::Blue,
     KColor::Transparent, KColor::Blue, KColor::Yellow, KColor::Yellow, KColor::Yellow, KColor::Yellow, KColor::Blue, KColor::Transparent,
-    KColor::Transparent, KColor::Transparent, KColor::Blue, KColor::Blue, KColor::Blue, KColor::Blue, KColor::Transparent, KColor::Transparent,        
+    KColor::Transparent, KColor::Transparent, KColor::Blue, KColor::Blue, KColor::Blue, KColor::Blue, KColor::Transparent, KColor::Transparent
     };
-    return Sprite{{8, 8}, std::span{spriteData, 8 * 8}};
+    return Sprite{Dimension{8, 8}, std::span<const KColor>{&spriteData[0], 8 * 8}};
 }
 
 } // namespace ecs

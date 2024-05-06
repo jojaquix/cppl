@@ -14,7 +14,7 @@ using Dimension = std::pair<int, int>; /**< Type alias for dimension of a sprite
  * @brief Type alias for sprite data.
  * Could be a vector of KColor or a span of const KColor to point to existing data.
 */
-using SpriteData = std::variant<std::vector<KColor>, std::span<const KColor>>; /**< Type alias for sprite data. */
+using SpriteData = std::span<const KColor>; /**< Type alias for sprite data. */
 
 /**
  * @struct Sprite
@@ -22,8 +22,20 @@ using SpriteData = std::variant<std::vector<KColor>, std::span<const KColor>>; /
  */
 struct Sprite
 {    
-    Dimension size {};      /**< The size of the sprite. */
-    SpriteData rawData {};  /**< The data of the sprite. */
+
+    //copy and move operations
+    Sprite(const Sprite&) = delete;
+    Sprite(Sprite&&) = delete;
+    Sprite& operator=(const Sprite&) = default;
+    Sprite& operator=(Sprite&&) = default;
+    
+    /**
+     * @brief Construct a new Sprite object.
+     * @param size The size of the sprite.
+     * @param data The data of the sprite.
+     */
+    Sprite(Dimension size, std::span<const KColor> data) : size(size), rawData(data) {}
+
 
     /**
      * @brief Get the sprite data as a span of const KColor.
@@ -42,6 +54,11 @@ struct Sprite
      
     */
     void drawToBuffer(ScreenBuff& sb, int x, int y) const;
+
+
+    Dimension size {};      /**< The size of the sprite. */
+    SpriteData rawData {};  /**< The data of the sprite. */
+
 };
 
 

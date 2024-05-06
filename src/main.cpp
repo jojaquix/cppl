@@ -1,8 +1,10 @@
 #include "IO.hpp"
 #include "Sprite.hpp"
 
+#include <iostream>
 
-ScreenBuff screenBuff;
+
+static ScreenBuff screenBuff;
 
 
 // we could use https://www.piskelapp.com/ to create sprites and see how it looks before using it in the code
@@ -68,28 +70,32 @@ void execute()
     //drawArc(60, 80, 50, 10, KColor::Yellow, 0, 3.14);
     wait(500);
 #endif
-
-    //clearScreen(KColor::White);
    
-    static int xi= 10;    
-    static int yi= 10;
+    int xi= 10;    
+    int yi= 10;
 
     //loop to move the sprite
+    //graphics::Sprite sprite{{8, 8}, std::span{sprite1, 8 * 8}};
+    graphics::Sprite sprite{graphics::makeFaceSprite()};
     for (int times = 0; times < 40; ++times)
     {
 
-        std::fill(screenBuff.begin(), screenBuff.end(), (KColor::Cyan));
-        
-        graphics::Sprite sprite{{8, 8}, std::span{sprite2, 8 * 8}};
-        //graphics::Sprite sprite{graphics::makeFaceSprite()};
+        std::fill(screenBuff.begin(), screenBuff.end(), KColor::Cyan);        
+        //screenBuffAddSprite (screenBuff, sprite, xi, yi);
         sprite.drawToBuffer(screenBuff, xi, yi);     
 
         xi++;
         yi++;
 
         updateScreen(screenBuff);
-        wait(5);
+        wait(20);
     }    
+
+    //add a little output message
+    drawString(10, 10, "Hello World!", "Consolas", 12, KColor::Black, false);
+
+    std::cout << "Hello 2d using gdi+" << std::endl;
+
 }
 
 
